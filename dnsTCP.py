@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import dns.resolver
+import time
 
 def hostGetFromGDns(domain):
     myresolver = dns.resolver.Resolver(configure=False)
@@ -14,12 +15,15 @@ print hostGetFromGDns("tumblr.com")
 
 with open("hostTargetList","r") as file:
     domainList =  file.readlines()
-    for domain in domainList:
-        domain = domain.replace("\n","") 
-        try:
-            hostIP = hostGetFromGDns(domain)
-            print hostIP
-        except:
-            break
-            
+    with open("hostIPScanResult","w+") as hostfile:       
+        updateTime = ["# Updated at %s\n\n"%(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())),]
+        hostList = [] + updateTime
+        for domain in domainList:
+            domain = domain.replace("\n","") 
+            try:
+                hostIP = hostGetFromGDns(domain)
+            except:
+                break
+            hostList.append("%s\t%s\n"%(domain,hostIP))
+        hostfile.writelines(hostList)
 print "done!"
