@@ -15,7 +15,7 @@ print hostGetFromGDns("tumblr.com")
 
 with open("hostTargetList","r") as file:
     domainList =  file.readlines()
-    with open("hostIPScanResult111","w+") as hostfile:       
+    with open("hostIPScanResult","w+") as hostfile:       
         updateTime = ["# Updated at %s\n\n"%(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())),]
         hostList = [] + updateTime
         for domain in domainList:
