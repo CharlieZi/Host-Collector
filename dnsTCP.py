@@ -23,7 +23,7 @@ with open("hostTargetList","r") as file:
             try:
                 hostIP = hostGetFromGDns(domain)
             except:
-                break
+                pass
             hostList.append("%s\t%s\n"%(domain,hostIP))
         hostfile.writelines(hostList)
 print "done!"
