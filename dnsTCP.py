@@ -11,3 +11,15 @@ def hostGetFromGDns(domain):
         break
 
 print hostGetFromGDns("tumblr.com")
+
+with open("hostTargetList","r") as file:
+    domainList =  file.readlines()
+    for domain in domainList:
+        domain = domain.replace("\n","") 
+        try:
+            hostIP = hostGetFromGDns(domain)
+            print hostIP
+        except:
+            break
+            
+print "done!"
