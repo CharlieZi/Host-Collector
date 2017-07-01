@@ -2,6 +2,18 @@
 import socket
 import time
 
+
+def hostGettorFromGoogleDNS(domainName):
+    import dns.resolver
+    Gresolver = dns.resolver.Resolver()
+    Gresolver.nameservers = ['8.8.8.8']
+    answers = Gresolver.query(domainName)
+    for rdata in answers:
+        hostIP = rdata
+    return hostIP
+
+
+
 def hostGettor(domainName):
     hostIP = socket.gethostbyname(domainName)
     return hostIP
@@ -16,8 +28,8 @@ with open("hostTargetList","r") as file:
 
 
         for domain in domainList:
-            domain = domain.replace("\n","")
-            hostIP = hostGettor(domain)
+            domain = domain.replace("\n","") 
+            hostIP = hostGettorFromGoogleDNS(domain)
             hostList.append("%s\t%s\n"%(domain,hostIP))
 
         hostfile.writelines(hostList)
