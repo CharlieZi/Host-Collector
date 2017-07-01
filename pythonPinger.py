@@ -6,7 +6,7 @@ import time
 def hostGettorFromGoogleDNS(domainName):
     import dns.resolver
     Gresolver = dns.resolver.Resolver()
-    Gresolver.nameservers = ['203.80.96.10']
+    Gresolver.nameservers = ['203.196.0.6']
     answers = Gresolver.query(domainName)
     for rdata in answers:
         hostIP = rdata
@@ -29,7 +29,10 @@ with open("hostTargetList","r") as file:
 
         for domain in domainList:
             domain = domain.replace("\n","") 
-            hostIP = hostGettorFromGoogleDNS(domain)
+            try:
+                hostIP = hostGettorFromGoogleDNS(domain)
+            except:
+                break
             hostList.append("%s\t%s\n"%(domain,hostIP))
 
         hostfile.writelines(hostList)
