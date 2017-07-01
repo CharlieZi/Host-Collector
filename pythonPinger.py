@@ -6,7 +6,7 @@ import time
 def hostGettorFromGoogleDNS(domainName):
     import dns.resolver
     Gresolver = dns.resolver.Resolver()
-    Gresolver.nameservers = ['8.8.8.8']
+    Gresolver.nameservers = ['203.80.96.10']
     answers = Gresolver.query(domainName)
     for rdata in answers:
         hostIP = rdata
